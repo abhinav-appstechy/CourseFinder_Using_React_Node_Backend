@@ -12,17 +12,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 function encodeQuery(query) {
-  // Check if the query contains two words
-  if (/^\w+\s+\w+$/.test(query)) {
-      // Convert the query to URL-encoded format
-      return encodeURIComponent(query);
+  // Check if the query contains more than one word
+  if (/\s/.test(query)) {
+    // Convert the query to URL-encoded format
+    return encodeURIComponent(query);
   }
   return query;
 }
 
+
 app.post("/search-course", (req, res)=>{
     try {
         const query = encodeQuery(req.body.query);
+        console.log("QUERY-", `https://www.udemy.com/api-2.0/search-courses/?src=ukw&q=${query}`)
         fetch(`https://www.udemy.com/api-2.0/search-courses/?src=ukw&q=${query}`, {
             "headers": {
               "accept": "application/json, text/plain, */*",
