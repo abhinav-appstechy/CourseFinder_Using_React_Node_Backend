@@ -20,6 +20,11 @@ function encodeQuery(query) {
   return query;
 }
 
+
+app.get("/", (req, res)=>{
+  return res.send("Server is running!!");
+})
+
 app.post("/search-course", (req, res) => {
   try {
     const query = encodeQuery(req.body.query);
